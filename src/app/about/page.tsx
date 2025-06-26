@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function AboutPage() {
@@ -137,13 +136,13 @@ export default function AboutPage() {
             <h2 className="text-2xl font-semibold mb-4">Hello there!</h2>
             <div className="space-y-4 text-gray-700 dark:text-gray-300">
               <p>
-                I'm Asish Kumar Yeleti, an Information Science and Engineering student with a passion for building modern web applications and solving complex problems.
+                I&apos;m Asish Kumar Yeleti, an Information Science and Engineering student with a passion for building modern web applications and solving complex problems.
               </p>
               <p>
                 Currently in my journey to become a proficient software developer, I enjoy working with JavaScript, React, and other modern technologies to create intuitive and elegant solutions.
               </p>
               <p>
-                When I'm not coding, you can find me exploring new tech, contributing to open-source projects, or expanding my knowledge in various computer science domains.
+                When I&apos;m not coding, you can find me exploring new tech, contributing to open-source projects, or expanding my knowledge in various computer science domains.
               </p>
             </div>
           </motion.div>
@@ -164,7 +163,7 @@ export default function AboutPage() {
             variants={fadeIn}
             className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border border-gray-100 dark:border-gray-700 space-y-6"
           >
-            {Object.entries(skills).map(([category, skillsList], index) => (
+            {Object.entries(skills).map(([category, skillsList]) => (
               <div key={category} className="mb-6 last:mb-0">
                 <h3 className="font-medium text-lg mb-3 text-blue-600 dark:text-blue-400">{category}</h3>
                 <div className="flex flex-wrap gap-2">
