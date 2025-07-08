@@ -109,40 +109,60 @@ export default function BlogsPage() {
   };
 
   return (
-    <div className="py-28 px-4 md:px-8">
+    <div className="py-28 px-4 md:px-8 relative">
+      {/* Background elements */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute -top-48 -right-48 w-96 h-96 rounded-full bg-blue-100/50 dark:bg-blue-900/20 blur-3xl"></div>
+        <div className="absolute -bottom-48 -left-48 w-96 h-96 rounded-full bg-violet-100/50 dark:bg-violet-900/20 blur-3xl"></div>
+      </div>
+      
       <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="mb-16 text-center"
         >
-          <h1 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-violet-600 mb-4">
-            Blog
-          </h1>
+          <div className="flex justify-center mb-4">
+            <h1 className="text-4xl md:text-6xl font-bold gradient-text mb-3">
+              <span className="title-with-flowing-underline">
+                Blo<span>g</span>
+              </span>
+            </h1>
+          </div>
           <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Thoughts, stories, and ideas about web development, programming, and technology.
           </p>
         </motion.div>
 
         {/* Filter */}
-        <div className="mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-12"
+        >
           <div className="flex flex-wrap justify-center gap-4">
-            {categories.map((category) => (
-              <button
+            {categories.map((category, index) => (
+              <motion.button
                 key={category.id}
                 onClick={() => setFilter(category.id)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 shadow-sm ${
                   filter === category.id 
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                    ? 'bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-blue-500/20'
+                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-100 dark:border-gray-700'
                 }`}
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * index, duration: 0.4 }}
               >
                 {category.name}
-              </button>
+              </motion.button>
             ))}
           </div>
-        </div>
+        </motion.div>
         
         {/* Blog Posts Grid */}
         <motion.div 
@@ -153,18 +173,19 @@ export default function BlogsPage() {
         >
           {filteredPosts.length > 0 ? (
             filteredPosts.map((post) => (
-            <motion.article
+              <motion.article
                 key={post.id}
                 variants={itemVariants}
-                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all duration-300 flex flex-col h-full"
-            >
-                <div className="aspect-video relative bg-gray-100 dark:bg-gray-900">
+                whileHover={{ y: -10 }}
+                className="glass dark:glass-dark rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full"
+              >
+                <div className="aspect-video relative bg-gradient-to-br from-blue-50 to-violet-50 dark:from-blue-900/20 dark:to-violet-900/20 overflow-hidden">
                   {post.image ? (
                     <Image 
                       src={post.image} 
                       alt={post.title}
                       fill
-                      className="object-cover"
+                      className="object-cover hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center text-gray-400 dark:text-gray-600">
@@ -172,9 +193,12 @@ export default function BlogsPage() {
                     </div>
                   )}
                   <div className="absolute top-3 left-3">
-                    <span className="px-2 py-1 text-xs font-medium bg-blue-600/90 text-white rounded-md">
+                    <motion.span 
+                      className="px-3 py-1 text-xs font-medium bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-full shadow-sm shadow-blue-500/20"
+                      whileHover={{ scale: 1.05 }}
+                    >
                       {categories.find(c => c.id === post.category)?.name || post.category}
-                    </span>
+                    </motion.span>
                   </div>
                 </div>
                 <div className="p-6 flex-1 flex flex-col">
@@ -183,7 +207,7 @@ export default function BlogsPage() {
                     <span className="mx-2">•</span>
                     <span>{post.readTime}</span>
                   </div>
-                  <h2 className="text-xl font-semibold mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                  <h2 className="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                     <Link href={`/blogs/${post.slug}`} className="hover:underline">
                       {post.title}
                     </Link>
@@ -198,7 +222,7 @@ export default function BlogsPage() {
                     Read more
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 
-                      className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" 
+                      className="h-4 w-4 ml-1 group-hover:translate-x-1.5 transition-transform" 
                       fill="none" 
                       viewBox="0 0 24 24" 
                       stroke="currentColor"
@@ -207,19 +231,19 @@ export default function BlogsPage() {
                     </svg>
                   </Link>
                 </div>
-            </motion.article>
+              </motion.article>
             ))
           ) : (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               className="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12"
-          >
+            >
               <p className="text-gray-500 dark:text-gray-400">
                 No blog posts found in this category. Check back later!
-            </p>
-          </motion.div>
-        )}
+              </p>
+            </motion.div>
+          )}
         </motion.div>
         
         {/* Newsletter Subscription */}
@@ -227,29 +251,41 @@ export default function BlogsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          className="mt-20 bg-gradient-to-r from-blue-50 to-violet-50 dark:from-blue-900/20 dark:to-violet-900/20 rounded-xl p-8 border border-blue-100 dark:border-blue-900/30"
+          className="mt-20 glass dark:glass-dark rounded-xl p-8 md:p-10 shadow-lg relative"
         >
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-2xl font-semibold mb-4">Subscribe to my newsletter</h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
+          {/* Background decorations */}
+          <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-blue-500/5 dark:bg-blue-500/10 blur-3xl -z-10"></div>
+          <div className="absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-violet-500/5 dark:bg-violet-500/10 blur-3xl -z-10"></div>
+          
+          <div className="max-w-3xl mx-auto">
+            <div className="flex items-center mb-6">
+              <div className="h-10 w-1 bg-gradient-to-b from-blue-500 to-violet-500 rounded-full mr-4"></div>
+              <h2 className="text-2xl font-bold gradient-text">Subscribe to my newsletter</h2>
+            </div>
+            <p className="text-gray-600 dark:text-gray-400 mb-8 md:text-lg">
               Get the latest posts delivered straight to your inbox. No spam, ever.
             </p>
             <form className="flex flex-col sm:flex-row gap-3">
               <input
                 type="email"
                 placeholder="Your email address"
-                className="px-4 py-3 rounded-lg flex-1 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-4 py-3.5 rounded-lg flex-1 border border-gray-200 dark:border-gray-700 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                 required
               />
-              <button
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 type="submit"
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-300"
+                className="px-6 py-3.5 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-medium rounded-lg transition-all duration-300 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 flex items-center justify-center"
               >
-                Subscribe
-              </button>
+                <span>Subscribe</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </motion.button>
             </form>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-4">
-              I'll never share your email with anyone else.
+            <p className="text-gray-500 dark:text-gray-500 text-sm mt-4 text-center">
+              By subscribing, you agree to our Privacy Policy and Terms of Service.
             </p>
           </div>
         </motion.div>

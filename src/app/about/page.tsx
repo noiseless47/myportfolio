@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function AboutPage() {
   const [mounted, setMounted] = useState(false);
@@ -81,17 +82,27 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="py-28 px-4 md:px-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="py-28 px-4 md:px-8 relative">
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden -z-10">
+        <div className="absolute -top-48 -right-48 w-96 h-96 rounded-full bg-blue-100/50 dark:bg-blue-900/20 blur-3xl" />
+        <div className="absolute -bottom-48 -left-48 w-96 h-96 rounded-full bg-purple-100/50 dark:bg-purple-900/20 blur-3xl" />
+      </div>
+      
+      <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="mb-16 text-center"
         >
-          <h1 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-violet-600 mb-4">
-            About Me
-          </h1>
+          <div className="flex justify-center mb-4">
+            <h1 className="text-4xl md:text-6xl font-bold gradient-text mb-3">
+              <span className="title-with-flowing-underline">
+                About Me
+              </span>
+            </h1>
+          </div>
           <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Get to know me better - my background, skills, and what drives me in the world of software development.
           </p>
@@ -105,25 +116,74 @@ export default function AboutPage() {
             variants={fadeIn}
             className="relative"
           >
-            <div className="aspect-square overflow-hidden rounded-2xl bg-gradient-to-tr from-blue-100 to-violet-100 dark:from-blue-900/30 dark:to-violet-900/30 flex items-center justify-center">
-              <div className="text-center text-gray-500 dark:text-gray-400">
-                <p className="mb-2">Profile Image</p>
-                <p className="text-sm">(Replace with your image)</p>
+            <div className="relative overflow-hidden rounded-2xl shadow-lg h-full">
+              <div className="aspect-square relative bg-gradient-to-br from-blue-100 via-purple-50 to-violet-100 dark:from-blue-900/30 dark:via-purple-900/20 dark:to-violet-900/30 flex items-center justify-center">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+                
+                {/* You can uncomment and add your image here */}
+                {/* <Image 
+                  src="/profile.jpg" 
+                  alt="Asish Kumar Yeleti" 
+                  fill
+                  className="object-cover z-10"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
+                /> */}
+                
+                {/* Placeholder content - remove when you add your image */}
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3, duration: 0.8 }}
+                  className="text-center text-gray-500 dark:text-gray-400 z-10"
+                >
+                  <p className="mb-2">Profile Image</p>
+                  <p className="text-sm">(Replace with your image)</p>
+                </motion.div>
               </div>
-              {/* Uncomment and add your image
-              <Image 
-                src="/profile.jpg" 
-                alt="Asish Kumar Yeleti" 
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-              />
-              */}
+              
+              {/* Decorative elements */}
+              <motion.div 
+                className="absolute -bottom-5 -right-5 w-32 h-32 rounded-full bg-white dark:bg-gray-800 shadow-lg flex items-center justify-center z-20"
+                animate={{ 
+                  rotate: [0, 10, 0, -10, 0],
+                  scale: [1, 1.1, 1, 1.05, 1],
+                }}
+                transition={{ 
+                  duration: 6, 
+                  ease: "easeInOut", 
+                  repeat: Infinity,
+                }}
+              >
+                <span className="text-4xl">👨‍💻</span>
+              </motion.div>
+              
+              <div className="absolute top-5 left-5 w-20 h-20 rounded-full bg-blue-500/10 dark:bg-blue-500/5 backdrop-blur-sm z-10"></div>
+              <div className="absolute bottom-20 right-8 w-16 h-16 rounded-full bg-purple-500/10 dark:bg-purple-500/5 backdrop-blur-sm z-10"></div>
             </div>
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-white dark:bg-gray-800 shadow-lg flex items-center justify-center">
-              <span className="text-3xl">👨‍💻</span>
-            </div>
+            
+            {/* Floating badges */}
+            <motion.div
+              className="absolute -left-8 top-1/3 glass dark:glass-dark rounded-full px-4 py-2 shadow-md flex items-center gap-2 z-20"
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 1, duration: 0.8 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              <span className="text-xs font-medium">Machine Learning</span>
+            </motion.div>
+            
+            <motion.div
+              className="absolute -right-8 top-2/3 glass dark:glass-dark rounded-full px-4 py-2 shadow-md flex items-center gap-2 z-20"
+              initial={{ x: 50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 1.3, duration: 0.8 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+              <span className="text-xs font-medium">Web Development</span>
+            </motion.div>
           </motion.div>
 
           <motion.div 
@@ -133,17 +193,66 @@ export default function AboutPage() {
             variants={fadeIn}
             className="flex flex-col justify-center"
           >
-            <h2 className="text-2xl font-semibold mb-4">Hello there!</h2>
-            <div className="space-y-4 text-gray-700 dark:text-gray-300">
-              <p>
-                I&apos;m Asish Kumar Yeleti, an Information Science and Engineering student with a passion for building modern web applications and solving complex problems.
-              </p>
-              <p>
+            <motion.h2 
+              className="text-3xl font-bold mb-6 relative inline-block"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
+              Hello there!
+              <motion.div 
+                className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-blue-500 to-violet-500 rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ delay: 0.8, duration: 0.8 }}
+              />
+            </motion.h2>
+            <div className="space-y-5 text-gray-700 dark:text-gray-300 text-lg">
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.8 }}
+              >
+                I&apos;m <span className="font-semibold text-blue-600 dark:text-blue-400">Asish Kumar Yeleti</span>, an Information Science and Engineering student with a passion for building modern web applications and solving complex problems.
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7, duration: 0.8 }}
+              >
                 Currently in my journey to become a proficient software developer, I enjoy working with JavaScript, React, and other modern technologies to create intuitive and elegant solutions.
-              </p>
-              <p>
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.9, duration: 0.8 }}
+              >
                 When I&apos;m not coding, you can find me exploring new tech, contributing to open-source projects, or expanding my knowledge in various computer science domains.
-              </p>
+              </motion.p>
+              
+              <motion.div 
+                className="pt-6 flex gap-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.1, duration: 0.6 }}
+              >
+                <Link 
+                  href="/contact" 
+                  className="btn-primary flex items-center gap-2"
+                >
+                  <span>Get in Touch</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </Link>
+                <a 
+                  href="/Asish_Kumar_Yeleti_Resume.pdf"
+                  target="_blank"
+                  className="btn-secondary"
+                >
+                  Download Resume
+                </a>
+              </motion.div>
             </div>
           </motion.div>
         </div>
@@ -155,29 +264,49 @@ export default function AboutPage() {
           variants={fadeIn}
           className="mb-24"
         >
-          <h2 className="text-2xl font-semibold mb-8 text-center">My Skills</h2>
+          <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-3xl font-bold gradient-text">My Skills</h2>
+            <div className="h-px flex-grow bg-gradient-to-r from-blue-200 to-violet-200 dark:from-blue-700/30 dark:to-violet-700/30"></div>
+          </div>
+          
           <motion.div
             custom={3}
             initial="hidden"
             animate="visible"
             variants={fadeIn}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border border-gray-100 dark:border-gray-700 space-y-6"
+            className="glass dark:glass-dark rounded-xl overflow-hidden shadow-md p-8 relative"
           >
-            {Object.entries(skills).map(([category, skillsList]) => (
-              <div key={category} className="mb-6 last:mb-0">
-                <h3 className="font-medium text-lg mb-3 text-blue-600 dark:text-blue-400">{category}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {skillsList.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
+            {/* Background decorations */}
+            <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-blue-500/5 dark:bg-blue-500/10 blur-3xl -z-10"></div>
+            <div className="absolute -bottom-24 -left-24 w-48 h-48 rounded-full bg-violet-500/5 dark:bg-violet-500/10 blur-3xl -z-10"></div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+              {Object.entries(skills).map(([category, skillsList], index) => (
+                <motion.div 
+                  key={category} 
+                  className="relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index, duration: 0.6 }}
+                >
+                  <div className="absolute -left-3 -top-3 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-violet-500 opacity-70"></div>
+                  
+                  <h3 className="font-bold text-xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600 pl-2">{category}</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {skillsList.map((skill, i) => (
+                      <motion.span
+                        key={skill}
+                        whileHover={{ y: -3, scale: 1.05 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                        className="px-4 py-2 bg-gradient-to-r from-blue-50 to-violet-50 dark:from-blue-900/20 dark:to-violet-900/20 text-gray-700 dark:text-gray-300 rounded-full text-sm border border-blue-100/50 dark:border-blue-800/30 shadow-sm"
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </motion.section>
 
@@ -186,15 +315,22 @@ export default function AboutPage() {
           initial="hidden"
           animate="visible"
           variants={fadeIn}
+          className="mb-24"
         >
-          <h2 className="text-2xl font-semibold mb-8 text-center">
-            <Link href="/education" className="flex items-center justify-center gap-2 group hover:text-blue-600 dark:hover:text-blue-400">
-              Education
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-0 group-hover:opacity-100 transition-opacity">
-                <path d="M7 17l9.2-9.2M17 17V7H7" />
+          <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-3xl font-bold gradient-text">Education</h2>
+            <div className="h-px flex-grow bg-gradient-to-r from-blue-200 to-violet-200 dark:from-blue-700/30 dark:to-violet-700/30"></div>
+            <Link 
+              href="/education" 
+              className="text-sm flex items-center gap-1.5 text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              <span>View full details</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </Link>
-          </h2>
+          </div>
+          
           <div className="space-y-8">
             {education.map((item, index) => (
               <motion.div
@@ -203,28 +339,34 @@ export default function AboutPage() {
                 initial="hidden"
                 animate="visible"
                 variants={fadeIn}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border border-gray-100 dark:border-gray-700"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.3 }}
+                className="glass dark:glass-dark rounded-xl overflow-hidden shadow-sm p-6 relative"
               >
-                <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-medium rounded-full mb-4">
-                  {item.period}
-                </span>
-                <h3 className="text-xl font-medium mb-2">{item.degree}</h3>
-                <p className="text-gray-700 dark:text-gray-300 mb-1">
-                  {item.institution} {item.location ? `, ${item.location}` : ''}
-                </p>
-                <p className="text-gray-600 dark:text-gray-400">
-                  {item.description}
-                </p>
+                {/* Decorative elements */}
+                <div className="absolute -top-10 -left-10 w-20 h-20 rounded-full bg-blue-500/5 dark:bg-blue-500/10 blur-xl -z-10"></div>
+                
+                <div className="flex flex-col md:flex-row justify-between">
+                  <div>
+                    <motion.span 
+                      className="inline-block px-3 py-1.5 bg-gradient-to-r from-blue-100 to-violet-100 dark:from-blue-900/30 dark:to-violet-900/30 text-blue-800 dark:text-blue-300 text-xs font-medium rounded-full mb-4"
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      {item.period}
+                    </motion.span>
+                    <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">{item.degree}</h3>
+                    <p className="text-blue-600 dark:text-blue-400 mb-3">
+                      {item.institution} {item.location ? `, ${item.location}` : ''}
+                    </p>
+                  </div>
+                  <div className="mt-2 md:mt-0 px-4 py-2 bg-green-50 dark:bg-green-900/20 rounded-lg flex items-center justify-center h-fit">
+                    <p className="text-green-600 dark:text-green-400 font-semibold">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             ))}
-          </div>
-          <div className="mt-8 text-center">
-            <Link href="/education" className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline">
-              View full education details
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
           </div>
         </motion.section>
 
@@ -233,16 +375,22 @@ export default function AboutPage() {
           initial="hidden"
           animate="visible"
           variants={fadeIn}
-          className="mt-24"
+          className="mb-24"
         >
-          <h2 className="text-2xl font-semibold mb-8 text-center">
-            <Link href="/experience" className="flex items-center justify-center gap-2 group hover:text-blue-600 dark:hover:text-blue-400">
-              Experience
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-0 group-hover:opacity-100 transition-opacity">
-                <path d="M7 17l9.2-9.2M17 17V7H7" />
+          <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-3xl font-bold gradient-text">Work Experience</h2>
+            <div className="h-px flex-grow bg-gradient-to-r from-blue-200 to-violet-200 dark:from-blue-700/30 dark:to-violet-700/30"></div>
+            <Link 
+              href="/experience" 
+              className="text-sm flex items-center gap-1.5 text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              <span>View full details</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </Link>
-          </h2>
+          </div>
+          
           <div className="space-y-8">
             {experiences.map((item, index) => (
               <motion.div
@@ -251,46 +399,66 @@ export default function AboutPage() {
                 initial="hidden"
                 animate="visible"
                 variants={fadeIn}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border border-gray-100 dark:border-gray-700"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.3 }}
+                className="glass dark:glass-dark rounded-xl overflow-hidden shadow-sm relative"
               >
-                <div className="flex flex-col md:flex-row md:justify-between mb-4">
-                  <div>
-                    <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-medium rounded-full mb-3">
-                      {item.period}
-                    </span>
-                    <h3 className="text-xl font-medium mb-1">{item.role}</h3>
-                    <p className="text-gray-700 dark:text-gray-300 mb-1">
-                      {item.company}
-                    </p>
+                {/* Colored top border */}
+                <div className="h-1 w-full bg-gradient-to-r from-blue-500 to-violet-500"></div>
+                
+                <div className="p-6">
+                  {/* Decorative elements */}
+                  <div className="absolute -bottom-10 -right-10 w-20 h-20 rounded-full bg-violet-500/5 dark:bg-violet-500/10 blur-xl -z-10"></div>
+                  
+                  <div className="flex flex-col md:flex-row justify-between mb-4">
+                    <div>
+                      <h3 className="text-xl font-bold mb-1 text-gray-800 dark:text-gray-200">{item.role}</h3>
+                      <p className="text-blue-600 dark:text-blue-400 mb-1">{item.company}</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">{item.location}</p>
+                    </div>
+                    <div>
+                      <motion.span 
+                        className="inline-block px-3 py-1.5 bg-gradient-to-r from-blue-100 to-violet-100 dark:from-blue-900/30 dark:to-violet-900/30 text-blue-800 dark:text-blue-300 text-xs font-medium rounded-full"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        {item.period}
+                      </motion.span>
+                    </div>
                   </div>
-                  {item.location && (
-                    <p className="text-gray-500 dark:text-gray-500 text-sm mt-1 md:mt-0">
-                      {item.location}
-                    </p>
-                  )}
+                  
+                  <ul className="list-disc pl-5 space-y-2 marker:text-blue-500">
+                    {item.description.map((desc, i) => (
+                      <li key={i} className="text-gray-700 dark:text-gray-300">{desc}</li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="space-y-2 mt-4">
-                  {Array.isArray(item.description) ? (
-                    item.description.map((point, i) => (
-                      <li key={i} className="flex items-start">
-                        <span className="text-blue-500 dark:text-blue-400 mr-2 mt-1">•</span>
-                        <span className="text-gray-600 dark:text-gray-400">{point}</span>
-                      </li>
-                    ))
-                  ) : (
-                    <li className="text-gray-600 dark:text-gray-400">{item.description}</li>
-                  )}
-                </ul>
               </motion.div>
             ))}
           </div>
-          <div className="mt-8 text-center">
-            <Link href="/experience" className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline">
-              View full experience details
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
+        </motion.section>
+        
+        {/* CTA Section */}
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+          className="relative glass dark:glass-dark rounded-2xl overflow-hidden p-12 shadow-lg text-center"
+        >
+          {/* Decorative elements */}
+          <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-blue-500/5 dark:bg-blue-500/10 blur-3xl"></div>
+          <div className="absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-violet-500/5 dark:bg-violet-500/10 blur-3xl"></div>
+          
+          <h2 className="text-3xl font-bold gradient-text mb-4">Ready to Collaborate?</h2>
+          <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8">
+            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>
+              <Link href="/contact" className="btn-primary">Contact Me</Link>
+            </motion.div>
+            <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>
+              <a href="/Asish_Kumar_Yeleti_Resume.pdf" target="_blank" className="btn-secondary">Download Resume</a>
+            </motion.div>
           </div>
         </motion.section>
       </div>

@@ -1,8 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Variants } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaInstagram, FaDiscord, FaEnvelope, FaPinterest, FaStackOverflow, FaCodepen, FaYoutube, FaReddit } from 'react-icons/fa';
+import { motion, Variants } from 'framer-motion';
+import { FaGithub, FaLinkedin, FaInstagram, FaDiscord, FaPinterest, FaStackOverflow, FaCodepen, FaYoutube, FaReddit } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { SiLeetcode, SiHashnode } from 'react-icons/si';
 import { FaSpotify } from 'react-icons/fa';
@@ -28,7 +27,7 @@ const SocialLinks = () => {
     }
   };
 
-  const iconVariants = {
+  const iconVariants: Variants = {
     hover: {
       scale: 1.2,
       y: -3,

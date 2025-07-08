@@ -59,7 +59,7 @@ export default function HeroSection() {
   ];
 
   return (
-    <section className="relative h-screen flex flex-col justify-center items-center px-4">
+    <section className="flex-1 flex flex-col justify-center items-center px-4 pt-24 pb-0">
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-transparent to-blue-50/30 dark:to-blue-950/20" />
         <div className="absolute top-20 -left-64 w-96 h-96 rounded-full bg-blue-200/20 dark:bg-blue-900/10 blur-3xl" />
@@ -73,31 +73,29 @@ export default function HeroSection() {
           transition={{ duration: 0.8 }}
           className="mb-4"
           >
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-4">
-            <span className="inline-block bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
-                Asish Kumar Yeleti
-              </span>
-            </h1>
-          </motion.div>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-blue-600 dark:text-blue-400 tracking-tighter mb-4">
+            Asish Kumar Yeleti
+          </h1>
+        </motion.div>
           
-          <motion.h2 
+        <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-xl md:text-2xl font-light text-gray-700 dark:text-gray-300 mb-6 md:mb-8"
-          >
-            Aspiring Software Developer
-          </motion.h2>
+        >
+          Aspiring Software Developer
+        </motion.h2>
           
-          <motion.p 
+        <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-12"
-          >
-            Information Science and Engineering student passionate about creating innovative software solutions with modern technologies.
-          </motion.p>
-          
+        >
+          Information Science and Engineering student passionate about creating innovative software solutions with modern technologies.
+        </motion.p>
+        
         {/* Social Links */}
         <motion.div 
               initial={{ opacity: 0, y: 20 }}
