@@ -378,7 +378,7 @@ export default function ContactPage() {
                 </div>
                 
                 <p className="text-gray-700 dark:text-gray-300 mb-6 max-w-sm">
-                  Whether you have a question about my work, or you just want to say hello, I'll try my best to get back to you as soon as possible!
+                  Whether you have a question about my work, or you just want to say hello, I&apos;ll try my best to get back to you as soon as possible!
                 </p>
                 
                 <div className="mt-auto flex space-x-4">

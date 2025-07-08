@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function AboutPage() {
   const [mounted, setMounted] = useState(false);
@@ -293,7 +292,7 @@ export default function AboutPage() {
                   
                   <h3 className="font-bold text-xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600 pl-2">{category}</h3>
                   <div className="flex flex-wrap gap-2">
-                    {skillsList.map((skill, i) => (
+                    {skillsList.map((skill) => (
                       <motion.span
                         key={skill}
                         whileHover={{ y: -3, scale: 1.05 }}
@@ -450,7 +449,7 @@ export default function AboutPage() {
           
           <h2 className="text-3xl font-bold gradient-text mb-4">Ready to Collaborate?</h2>
           <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8">
-            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+            I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>

@@ -33,7 +33,7 @@ export default function QuikCartHelpPage() {
             <ol className="list-decimal list-inside space-y-1 mb-4">
               <li>Start the app and select QR scanner option.</li>
               <li>Scan the QR code on the purchase receipt.</li>
-              <li>Begin RFID scanning and verify each item by tapping it to the device's NFC reader.</li>
+              <li>Begin RFID scanning and verify each item by tapping it to the device&apos;s NFC reader.</li>
               <li>Check visual and audio feedback for verification status.</li>
             </ol>
             <h3 className="font-semibold mb-2">Troubleshooting</h3>

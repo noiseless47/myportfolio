@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import ProjectModal from '@/components/ProjectModal';
 
