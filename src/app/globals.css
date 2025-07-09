@@ -13,12 +13,11 @@ html, body {
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 10, 10, 20;
-    --background-end-rgb: 5, 5, 15;
-  }
+/* Remove media query and use dark class instead */
+.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 10, 10, 20;
+  --background-end-rgb: 5, 5, 15;
 }
 
 body {

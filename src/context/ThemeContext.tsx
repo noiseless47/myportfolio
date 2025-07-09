@@ -9,32 +9,58 @@ interface ThemeContextType {
   toggleTheme: () => void;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+// Create context with default values to avoid initialization errors
+const ThemeContext = createContext<ThemeContextType>({
+  theme: 'light',
+  toggleTheme: () => {}
+});
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
+  const [mounted, setMounted] = useState(false);
 
+  // Initialize theme once on the client side
   useEffect(() => {
+    setMounted(true);
+    
     // Check local storage
-    const savedTheme = localStorage.getItem('theme') as Theme | null;
+    let savedTheme: Theme | null = null;
+    try {
+      savedTheme = localStorage.getItem('theme') as Theme | null;
+    } catch (error) {
+      // Handle localStorage being unavailable
+      console.warn('LocalStorage not available:', error);
+    }
     
     // Check system preference if no saved theme
     if (!savedTheme) {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      setTheme(systemTheme);
-      document.documentElement.classList.toggle('dark', systemTheme === 'dark');
-      return;
+      try {
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        setTheme(systemTheme);
+        document.documentElement.classList.toggle('dark', systemTheme === 'dark');
+        return;
+      } catch (error) {
+        console.warn('Media query not available:', error);
+      }
+    } else {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
     }
-    
-    setTheme(savedTheme);
-    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
   }, []);
 
+  // Safe theme toggle that works on client side
   const toggleTheme = () => {
+    if (!mounted) return;
+    
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    
+    try {
+      localStorage.setItem('theme', newTheme);
+      document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    } catch (error) {
+      console.warn('Could not save theme preference:', error);
+    }
   };
 
   return (
@@ -44,10 +70,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// Safe hook that works with SSR
 export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
+  return useContext(ThemeContext);
 } 

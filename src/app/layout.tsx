@@ -34,17 +34,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${inter.variable}`} suppressHydrationWarning>
-      <body
-        className="antialiased font-sans"
-      >
+    <html lang="en" className={`${poppins.variable} ${inter.variable} scroll-smooth`} suppressHydrationWarning>
+      <body className="antialiased font-sans">
         <ThemeProvider>
-          <Background />
-          <Navbar />
-          <main className="min-h-screen selection:bg-blue-500/20 selection:text-blue-800 dark:selection:bg-blue-500/30 dark:selection:text-blue-200">
-            {children}
-          </main>
-          <Footer />
+          <>
+            <Background />
+            <Navbar />
+            <main className="min-h-screen selection:bg-blue-500/20 selection:text-blue-800 dark:selection:bg-blue-500/30 dark:selection:text-blue-200">
+              {children}
+            </main>
+            <Footer />
+          </>
         </ThemeProvider>
       </body>
     </html>

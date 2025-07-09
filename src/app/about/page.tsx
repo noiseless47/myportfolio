@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function AboutPage() {
   const [mounted, setMounted] = useState(false);
@@ -120,25 +121,14 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
                 
                 {/* You can uncomment and add your image here */}
-                {/* <Image 
+                <Image 
                   src="/profile.jpg" 
                   alt="Asish Kumar Yeleti" 
                   fill
                   className="object-cover z-10"
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority
-                /> */}
-                
-                {/* Placeholder content - remove when you add your image */}
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3, duration: 0.8 }}
-                  className="text-center text-gray-500 dark:text-gray-400 z-10"
-                >
-                  <p className="mb-2">Profile Image</p>
-                  <p className="text-sm">(Replace with your image)</p>
-                </motion.div>
+                />
               </div>
               
               {/* Decorative elements */}

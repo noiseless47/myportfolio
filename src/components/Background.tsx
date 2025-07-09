@@ -5,14 +5,29 @@ import { motion } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 
 export default function Background() {
-  const { theme } = useTheme();
+  // Using useState for theme fallback to avoid hydration errors
+  const [themeState, setThemeState] = useState<'light' | 'dark'>('light');
   const [mounted, setMounted] = useState(false);
+
+  // Safe theme access with error handling
+  let contextTheme: 'light' | 'dark' = 'light';
+  try {
+    const themeContext = useTheme();
+    contextTheme = themeContext?.theme || 'light';
+  } catch (error) {
+    // Fallback to light if context is not available
+    contextTheme = 'light';
+  }
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    setThemeState(contextTheme);
+  }, [contextTheme]);
 
   if (!mounted) return null;
+
+  // Use themeState which is safely initialized
+  const currentTheme = themeState;
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
@@ -23,7 +38,7 @@ export default function Background() {
       <div 
         className="absolute inset-0 opacity-[0.015] dark:opacity-[0.03]"
         style={{
-          backgroundImage: `radial-gradient(${theme === 'dark' ? '#555' : '#222'} 1px, transparent 1px)`,
+          backgroundImage: `radial-gradient(${currentTheme === 'dark' ? '#555' : '#222'} 1px, transparent 1px)`,
           backgroundSize: '40px 40px'
         }}
       />
