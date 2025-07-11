@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useTheme } from '@/context/ThemeContext';
+import Background from '@/components/Background';
 
 export default function NotFoundPage() {
   const [countdown, setCountdown] = useState(10);
@@ -13,13 +14,14 @@ export default function NotFoundPage() {
   const [interactionCount, setInteractionCount] = useState(0);
   const [glitchIntensity, setGlitchIntensity] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   
   // Safe theme access with error handling
   let contextTheme: 'light' | 'dark' = 'light';
   try {
     const themeContext = useTheme();
     contextTheme = themeContext?.theme || 'light';
-  } catch (error) {
+  } catch {
     // Fallback to light if context is not available
     contextTheme = 'light';
   }
@@ -37,19 +39,34 @@ export default function NotFoundPage() {
     "404 - Digital void encountered"
   ];
 
-  // Countdown effect
+  // Countdown effect - fixed to ensure accurate timing
   useEffect(() => {
-    if (countdown <= 0) {
-      router.push('/');
-      return;
+    // Clear any existing interval when component mounts or unmounts
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
     }
     
-    const timer = setTimeout(() => {
-      setCountdown(countdown - 1);
+    // Set a new interval that runs every second
+    intervalRef.current = setInterval(() => {
+      setCountdown((prevCount) => {
+        if (prevCount <= 1) {
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+          }
+          router.push('/');
+          return 0;
+        }
+        return prevCount - 1;
+      });
     }, 1000);
     
-    return () => clearTimeout(timer);
-  }, [countdown, router]);
+    // Cleanup on unmount
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [router]);
   
   // Error message cycling
   useEffect(() => {
@@ -60,7 +77,7 @@ export default function NotFoundPage() {
     }, 3000);
     
     return () => clearInterval(interval);
-  }, []);
+  }, [errorMessages.length]);
 
   // Glitch effect on interaction
   const triggerGlitch = () => {
@@ -101,61 +118,8 @@ export default function NotFoundPage() {
         </defs>
       </svg>
       
-      {/* Background blobs - using the same style as the main site */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 transition-colors duration-700" />
-        
-        {/* Subtle dot pattern */}
-        <div 
-          className="absolute inset-0 opacity-[0.015] dark:opacity-[0.03]"
-          style={{
-            backgroundImage: `radial-gradient(${contextTheme === 'dark' ? '#555' : '#222'} 1px, transparent 1px)`,
-            backgroundSize: '40px 40px'
-          }}
-        />
-        
-        {/* Animated blobs */}
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: [0.04, 0.08, 0.04],
-              y: [0, -10, 0],
-              scale: [1, 1.02, 1]
-            }}
-            transition={{ 
-              repeat: Infinity, 
-              duration: 18,
-              ease: "easeInOut"
-            }}
-            className="absolute top-1/3 left-1/3 w-[30rem] h-[30rem] rounded-full bg-blue-300/10 dark:bg-blue-600/5 blur-3xl"
-          />
-          
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: [0.03, 0.07, 0.03],
-              x: [0, 10, 0],
-              scale: [1, 1.01, 1]
-            }}
-            transition={{ 
-              repeat: Infinity, 
-              duration: 20,
-              ease: "easeInOut",
-              delay: 2
-            }}
-            className="absolute bottom-1/3 right-1/3 w-[35rem] h-[35rem] rounded-full bg-indigo-300/10 dark:bg-indigo-600/5 blur-3xl"
-          />
-        </div>
-        
-        {/* Subtle noise texture */}
-        <div 
-          className="absolute inset-0 opacity-[0.02] dark:opacity-[0.04] mix-blend-overlay"
-          style={{
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.7\' numOctaves=\'2\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
-          }}
-        />
-      </div>
+      {/* Use the shared Background component */}
+      <Background />
       
       <main className="relative z-10 max-w-4xl w-full px-4 py-20 text-center" onClick={triggerGlitch}>
         <motion.div
@@ -196,8 +160,8 @@ export default function NotFoundPage() {
           </motion.p>
           
           <p className="text-gray-600 dark:text-gray-400 mb-12 max-w-lg mx-auto">
-            The page you're looking for has been digitized, deleted, or never existed in the first place. 
-            The system will redirect you to safety in {countdown} seconds.
+            The page you&apos;re looking for has been digitized, deleted, or never existed in the first place. 
+            The system will redirect you to safety in <span className="font-medium text-blue-600 dark:text-blue-400">{countdown}</span> seconds.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
@@ -208,15 +172,12 @@ export default function NotFoundPage() {
             >
               <Link
                 href="/"
-                className="relative inline-flex items-center justify-center overflow-hidden rounded-full p-[2px] font-medium group"
+                className="inline-flex items-center justify-center px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-colors duration-300"
               >
-                <span className="absolute inset-[-1000%] bg-gradient-to-r from-blue-500 via-violet-500 to-blue-500 animate-[spin_4s_linear_infinite]" />
-                <span className="inline-flex items-center justify-center w-full h-full px-8 py-3 text-white transition-all duration-300 bg-blue-600 hover:bg-blue-700 rounded-full backdrop-blur-3xl group-hover:bg-opacity-90">
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                  </svg>
-                  Return Home
-                </span>
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                Return Home
               </Link>
             </motion.div>
             
@@ -227,15 +188,12 @@ export default function NotFoundPage() {
             >
               <button
                 onClick={() => router.back()}
-                className="relative inline-flex items-center justify-center overflow-hidden rounded-full p-[2px] font-medium group"
+                className="inline-flex items-center justify-center px-8 py-3 border border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-full transition-colors duration-300"
               >
-                <span className="absolute inset-[-1000%] bg-gradient-to-r from-blue-300 via-indigo-400 to-violet-500 opacity-40 dark:opacity-20 animate-[spin_4s_linear_infinite]" />
-                <span className="inline-flex items-center justify-center w-full h-full px-8 py-3 text-blue-600 dark:text-blue-400 transition-all duration-300 bg-white dark:bg-gray-900 rounded-full backdrop-blur-3xl group-hover:text-blue-500 group-hover:dark:text-blue-300 hover:bg-opacity-90">
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                  </svg>
-                  Go Back
-                </span>
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Go Back
               </button>
             </motion.div>
           </div>
@@ -248,12 +206,12 @@ export default function NotFoundPage() {
       </div>
       
       <style jsx global>{`
-        .easter-egg {
-          display: var(--easter-egg);
-        }
-        
         :root {
           --easter-egg: none;
+        }
+        
+        .easter-egg {
+          display: var(--easter-egg);
         }
       `}</style>
     </div>
