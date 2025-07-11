@@ -5,6 +5,7 @@
 html, body {
   overflow-x: hidden;
   max-width: 100%;
+  font-family: var(--font-tiktok-sans), sans-serif;
 }
 
 :root {
@@ -27,7 +28,7 @@ body {
       rgb(var(--background-start-rgb)),
       rgb(var(--background-end-rgb))
     );
-  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-family: var(--font-tiktok-sans), Arial, sans-serif;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 

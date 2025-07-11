@@ -43,16 +43,17 @@ export default function Footer() {
               </p>
               
               {/* Social links */}
-              <div className="flex space-x-4 mb-8 md:mb-0">
+              <div className="flex space-x-6 mb-8 md:mb-0">
                 <motion.a
                   href="https://github.com/noiseless47"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ y: -5, scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-900/30 dark:hover:text-blue-400 transition-all"
+                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  aria-label="GitHub"
                 >
-                  <FaGithub size={18} />
+                  <FaGithub size={22} />
                 </motion.a>
                 
                 <motion.a
@@ -61,9 +62,10 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   whileHover={{ y: -5, scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-900/30 dark:hover:text-blue-400 transition-all"
+                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  aria-label="LinkedIn"
                 >
-                  <FaLinkedin size={18} />
+                  <FaLinkedin size={22} />
                 </motion.a>
                 
                 <motion.a
@@ -72,18 +74,20 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   whileHover={{ y: -5, scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-900/30 dark:hover:text-blue-400 transition-all"
+                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  aria-label="Twitter"
                 >
-                  <FaXTwitter size={18} />
+                  <FaXTwitter size={22} />
                 </motion.a>
                 
                 <motion.a
                   href="mailto:asishyeleti2005@gmail.com"
                   whileHover={{ y: -5, scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-900/30 dark:hover:text-blue-400 transition-all"
+                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  aria-label="Email"
                 >
-                  <FaEnvelope size={18} />
+                  <FaEnvelope size={22} />
                 </motion.a>
               </div>
             </div>

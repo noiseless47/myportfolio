@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaGithub, FaLinkedin, FaInstagram, FaDiscord } from 'react-icons/fa';
@@ -9,10 +9,50 @@ import React from 'react';
 
 export default function HeroSection() {
   const [mounted, setMounted] = useState(false);
+  const [text, setText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+  
+  const phrases = [
+    "Aspiring Software Developer",
+    "Full Stack Web Developer",
+    "UI/UX Enthusiast",
+    "Problem Solver",
+    "Continuous Learner"
+  ];
+  
+  const typingRef = useRef(null);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    
+    const handleTyping = () => {
+      const currentIndex = loopNum % phrases.length;
+      const fullText = phrases[currentIndex];
+      
+      setText(
+        isDeleting
+          ? fullText.substring(0, text.length - 1)
+          : fullText.substring(0, text.length + 1)
+      );
+      
+      setTypingSpeed(isDeleting ? 100 : 150);
+      
+      if (!isDeleting && text === fullText) {
+        setTimeout(() => setIsDeleting(true), 1500);
+      } else if (isDeleting && text === '') {
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+      }
+    };
+    
+    const timer = setTimeout(() => {
+      handleTyping();
+    }, typingSpeed);
+    
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, loopNum, typingSpeed, phrases]);
   
   if (!mounted) return null;
 
@@ -90,9 +130,11 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-xl md:text-2xl font-light text-gray-700 dark:text-gray-300 mb-6 md:mb-8"
+          className="text-xl md:text-2xl font-light text-gray-700 dark:text-gray-300 mb-6 md:mb-8 h-8"
+          ref={typingRef}
         >
-          Aspiring Software Developer
+          <span>{text}</span>
+          <span className="inline-block w-0.5 h-5 ml-1 bg-blue-500 dark:bg-blue-400 animate-pulse"></span>
         </motion.h2>
           
         <motion.p 
@@ -158,7 +200,7 @@ export default function HeroSection() {
             <Link
               href="/Asish_Kumar_Yeleti_Resume.pdf"
               target="_blank"
-              className="inline-flex items-center justify-center px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-colors duration-300"
+              className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full transition-all duration-300 shadow-md hover:shadow-lg"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -174,7 +216,7 @@ export default function HeroSection() {
           >
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-8 py-3 border border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-full transition-colors duration-300"
+              className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-transparent to-transparent hover:from-blue-50 hover:to-indigo-50 dark:hover:from-blue-900/20 dark:hover:to-indigo-900/30 border border-blue-500 text-blue-600 dark:text-blue-400 rounded-full transition-all duration-300"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>

@@ -1,24 +1,22 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import "./fonts.css";
 import { ThemeProvider } from '@/context/ThemeContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Background from '@/components/Background';
 
-// Poppins font for headings
-const poppins = Poppins({
-  weight: ['300', '400', '500', '600', '700'],
-  subsets: ['latin'],
-  variable: '--font-poppins',
-  display: 'swap',
-});
-
-// Inter font for body text
-const inter = Inter({
-  weight: ['300', '400', '500', '600'],
-  subsets: ['latin'],
-  variable: '--font-inter',
+// Local TikTok Sans font
+const tiktokSans = localFont({
+  src: [
+    {
+      path: '../../public/fonts/TikTokSans-VariableFont_opsz,slnt,wdth,wght.ttf',
+      weight: 'variable',
+      style: 'normal',
+    }
+  ],
+  variable: '--font-tiktok-sans',
   display: 'swap',
 });
 
@@ -34,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${inter.variable} scroll-smooth`} suppressHydrationWarning>
+    <html lang="en" className={`${tiktokSans.variable} scroll-smooth`} suppressHydrationWarning>
       <body className="antialiased font-sans">
         <ThemeProvider>
           <>
