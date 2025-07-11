@@ -56,7 +56,8 @@ export default function Navbar() {
               whileHover={{ scale: 1.03 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              Asish Kumar Yeleti
+              <span className="hidden md:inline">Asish Kumar Yeleti</span>
+              <span className="md:hidden">Asish Yeleti</span>
             </motion.span>
           </Link>
             
