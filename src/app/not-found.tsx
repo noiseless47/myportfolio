@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useTheme } from '@/context/ThemeContext';
 import Background from '@/components/Background';
@@ -17,13 +17,11 @@ export default function NotFoundPage() {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   
   // Safe theme access with error handling
-  let contextTheme: 'light' | 'dark' = 'light';
   try {
-    const themeContext = useTheme();
-    contextTheme = themeContext?.theme || 'light';
+    useTheme();
+    // Theme is used via dark mode classes
   } catch {
-    // Fallback to light if context is not available
-    contextTheme = 'light';
+    // Fallback if context is not available
   }
 
   useEffect(() => {
