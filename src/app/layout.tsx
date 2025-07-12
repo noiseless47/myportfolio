@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Background from '@/components/Background';
+import { Analytics } from "@vercel/analytics/next"
 
 // Local TikTok Sans font
 const tiktokSans = localFont({
@@ -42,6 +43,7 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
+            <Analytics />
           </>
         </ThemeProvider>
       </body>
