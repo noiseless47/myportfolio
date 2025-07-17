@@ -47,7 +47,7 @@ export default function ProjectsPage() {
       image: "/gpumesh-thumbnail.png", // Add an image to public folder
       technologies: ["CUDA", "GPU Computing", "C++", "Computer Graphics", "Parallel Processing"],
       github: "https://github.com/noiseless47/gpumesh",
-      live: "https://gpumesh-demo.com",
+      live: "none",
       category: "ai"
     },
     {
@@ -56,8 +56,8 @@ export default function ProjectsPage() {
       description: "ML-powered Knapsack Problem Solver that achieves 97% of optimal solution quality while reducing solving time by up to 90% compared to exact methods.",
       image: "/knapsackml-thumbnail.png",
       technologies: ["Python", "Machine Learning", "Random Forest", "FastAPI", "Optimization Algorithms"],
-      github: "https://github.com/noiseless47/knapsackml",
-      live: "https://knapsackml-demo.com",
+      github: "https://github.com/noiseless47/knapsack-ml",
+      live: "https://knapsack-ml.vercel.app",
       category: "ai"
     },
     {
@@ -66,7 +66,7 @@ export default function ProjectsPage() {
       description: "Flutter-based Mobile Shopping Application with secure payment processing, offline functionality, and optimized performance.",
       image: "/quikcart-thumbnail.png",
       technologies: ["Flutter", "Dart", "Firebase", "SQLite", "Razorpay"],
-      github: "https://github.com/noiseless47/quikcart",
+      github: "https://github.com/noiseless47/quikcart-security",
       live: "https://quikcart-demo.com",
       category: "app"
     },
@@ -77,7 +77,7 @@ export default function ProjectsPage() {
       image: "https://placehold.co/600x400",
       technologies: ["Next.js", "Spotify API", "AI/ML", "TypeScript", "Framer Motion"],
       github: "https://github.com/noiseless47/voda",
-      live: "https://voda-spotify.vercel.app",
+      live: "https://myvoda.vercel.app",
       category: "ai"
     },
     {
