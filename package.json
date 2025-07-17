@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
+    "favicon": "^0.0.2",
     "framer-motion": "^12.19.1",
     "gsap": "^3.13.0",
     "next": "15.3.4",
