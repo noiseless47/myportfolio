@@ -15,15 +15,28 @@ export default function ExperiencePage() {
 
   const workExperience = [
     {
+      role: "Software Engineer Intern",
+      company: "SignDesk",
+      period: "Aug 2025 – Present",
+      location: "On-Site",
+      description: "Developing and maintaining web applications and backend services (using Golang) for digital documentation and workflow automation.",
+      achievements: [
+        "Developing and maintaining web applications and backend services using Golang for digital documentation and workflow automation",
+        "Collaborating with cross-functional teams to deliver scalable solutions",
+        "Implementing new features and optimizing existing systems"
+      ],
+      technologies: ["Web Development", "Golang", "Automation", "React", "Node.js"]
+    },
+    {
       role: "Product Developer Intern",
       company: "einsteini.ai by SpikedAI",
-      period: "Apr 2025 – Present",
+      period: "Apr 2025 – Aug 2025",
       location: "Remote",
-      description: "Working on AI-powered product development and implementation.",
+      description: "Worked on AI-powered product development and implementation.",
       achievements: [
-        "Working on AI-powered product development and implementation",
-        "Contributing to the development of machine learning models",
-        "Assisting in product testing and optimization"
+        "Worked on AI-powered product development and implementation",
+        "Contributed to the development of machine learning models",
+        "Assisted in product testing and optimization"
       ],
       technologies: ["AI", "Machine Learning", "Product Development", "Testing"]
     },
@@ -53,20 +66,32 @@ export default function ExperiencePage() {
     {
       role: "Member",
       organization: "Astra Robotics",
-      period: "11/2024–Present",
+      period: "11/2024-Present",
       description: "Work on robotics projects and contribute to the development of autonomous systems."
     },
     {
       role: "Senior Member",
       organization: "RV QuizCorp",
-      period: "10/2023–Present",
+      period: "10/2023-Present",
       description: "Represent the college in quiz competitions and help organize intra-college quiz events."
     },
     {
       role: "Member",
       organization: "CubeX",
-      period: "01/2024–Present",
+      period: "01/2024-Present",
       description: "Participate in 3D modeling and design projects using advanced CAD software."
+    },
+    {
+      role: "Member",
+      organization: "IEEE RVCE",
+      period: "03/2025-Present",
+      description: "Engage in technical events, workshops, and networking activities as part of the IEEE student branch at RVCE."
+    },
+    {
+      role: "Member",
+      organization: "TEDx RVCE",
+      period: "06/2025-Present",
+      description: "Contribute to organizing TEDx events and participate in idea-sharing sessions at RVCE."
     }
   ];
 

@@ -155,6 +155,18 @@ export default function EducationPage() {
       organization: "CubeX",
       period: "01/2024–Present",
       description: "Participate in 3D modeling and design projects using advanced CAD software."
+    },
+    {
+      role: "Member",
+      organization: "IEEE RVCE",
+      period: "08/2024–Present",
+      description: "Engage in technical events, workshops, and networking activities as part of the IEEE student branch at RVCE."
+    },
+    {
+      role: "Member",
+      organization: "TEDx RVCE",
+      period: "08/2024–Present",
+      description: "Contribute to organizing TEDx events and participate in idea-sharing sessions at RVCE."
     }
   ];
 

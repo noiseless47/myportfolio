@@ -57,14 +57,25 @@ export default function AboutPage() {
 
   const experiences = [
     {
+      role: "Software Engineer Intern",
+      company: "SignDesk",
+      period: "Aug 2025 – Present",
+      location: "On-Site",
+      description: [
+        "Developing and maintaining web applications and backend services (using Golang) for digital documentation and workflow automation",
+        "Collaborating with cross-functional teams to deliver scalable solutions",
+        "Implementing new features and optimizing existing systems"
+      ]
+    },
+    {
       role: "Product Developer Intern",
       company: "einsteini.ai by SpikedAI",
-      period: "Apr 2025 – Present",
+      period: "Apr 2025 – Aug 2025",
       location: "Remote",
       description: [
-        "Working on AI-powered product development and implementation",
-        "Contributing to the development of machine learning models",
-        "Assisting in product testing and optimization"
+        "Worked on AI-powered product development and implementation",
+        "Contributed to the development of machine learning models",
+        "Assisted in product testing and optimization"
       ]
     },
     {
@@ -147,7 +158,6 @@ export default function AboutPage() {
                 <span className="text-4xl">👨‍💻</span>
               </motion.div>
               
-              <div className="absolute top-5 left-5 w-20 h-20 rounded-full bg-blue-500/10 dark:bg-blue-500/5 backdrop-blur-sm z-10"></div>
               <div className="absolute bottom-20 right-8 w-16 h-16 rounded-full bg-purple-500/10 dark:bg-purple-500/5 backdrop-blur-sm z-10"></div>
             </div>
             
